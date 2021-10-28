@@ -20,6 +20,12 @@ class BookController extends Controller
 
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required',
+            'ISBN' => 'required|ISBN|unique:books',
+        ]);
+
         $book = Book::create($request->all());
 
         return response()->json($book, 201);
